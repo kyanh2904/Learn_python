@@ -1,106 +1,201 @@
-#pokemon names have capital letters
-#element names don't have capital letters
-
+from enum import Enum
 import random
 
+# https://docs.python.org/3.11/howto/enum.html
+# TODO add more pokemons
+class Pokedex(Enum):
+    Bulbasaur = 1
+    Ivysaur = 2
+    Venusaur = 3
+    Charmander = 4
+    Charmeleon = 5
+    Charizard = 6
+    Squirtle = 7
+    Wartortle = 8
+    Blastoise = 9
+    Caterpie = 10
+    Metapod = 11
+    Butterfree = 12 
 
-
-z = 0 
-
-pokemon = input("Choose the name of your pokemon: ")
-print("Your pokemon is", pokemon)
-
-element = input("Choose the element of your pokemon (fire, water, grass): ")
-
-if element == "fire":
-
-    element == "fire"
-
-elif element == "water":
-
-    element == "water"
-
-elif element == "grass":
-
-    element == "grass"
-
-else: 
-    print("Capital letters sensitive")
-    exit()
-
-pokemonH = 100
-pokemonAtk = 100
-pokemonDef = 50
-
-print("Your pokemon will start with 100 hp, 100 attack, 50 defense.")
-stats = random.randrange(10, 21)
-print("You have", stats, "stats, you can upgrade", stats, "time")
-
-
-while stats != 0:
-    upg = input("What do you want to upgrade (def, atk, hp)?")
-
-    if upg == "def":
-        pokemonDef = pokemonDef + 10
-        print("Your defense is now", pokemonDef)
-        stats = stats - 1
-        print("you have", stats, "stats left")
-
-    elif upg == "atk":
-        pokemonAtk = pokemonAtk + 10
-        print("Your attack is now", pokemonAtk)
-        stats = stats - 1
-        print("you have", stats, "stats left")
-
-    elif upg == "hp":
-        pokemonH = pokemonH + 10
-        print("Your hp is now", pokemonH)
-        stats = stats - 1
-        print("you have", stats, "stats left")
-
-    else:
-        print("Please input def, atk, or hp. This is case sensitive. ")
-
-
-
+# There are 18 official types of Pokémons:
+# https://pokemon.fandom.com/wiki/Types
+class PokeTypes(Enum):
+    NORMAL = 0
+    FIRE = 1
+    WATER = 2 
+    GRASS = 3
+ 
+# Ref https://www.w3schools.com/python/python_classes.asp
+# Ref https://docs.python.org/3.11/howto/enum.html
+# Ref https://blog.glugmvit.com/oops/
 class Pokemon:
-    def __init__(self, name, types, health, attack, defense):
+    def __init__(self, name, types, health, attack, defence):
         self.name = name
+        # version 1: One pokemon can get only ONE type
+        # TODO version 2: One pokemon can get more than one type
         self.types = types
         self.health = health
+
+        # TODO add energy (for charged moves)
+        # TODO add fast move, 1st, 2nd charged moves
         self.attack = attack
-        self.defense = defense 
+        self.defence = defence 
 
-    def getPokemon(self):
-        print("Name:", int(self.name))
-        print("Type:", int(self.types))
-        print("Health:", int(self.health))
-        print("Attack: ", int(self.attack))
-        print("Defense: ", int(self.defense))
+    def printPokemon(self):
+        print("Name:", self.name)
+        print("Type:", self.types)
+        print("Health:", self.health)
+        print("Attack: ", self.attack)
+        print("Defence: ", self.defence)
+    
+    def getName(self):
+        return self.name 
+    def getType(self):
+        return self.types
+    def getHealth(self):
+        return self.health
+    def getAttack(self):
+        return self.attack
+    def getDefence(self):
+        return self.defence
 
-p1 = Pokemon("Bulbasaur", "grass", 45, 49, 49)
-p4 = Pokemon("Charmander", "fire", 39, 52, 43)
-p7 = Pokemon("Squirtle", "water", 44, 48, 65)
+    def setName(self, x):
+        self.name = x 
+    def setTypes(self, x):
+        self.types = x
+    def setHealth(self, x):
+        self.health = x
+    def setAttack(self, x):
+        self.attack = x
+    def setDefence(self, x):
+        self.defence = x 
 
+    def isAlive(self):
+        return self.health > 0
+    def isDead(self):
+        return not self.isAlive()
 
+    # TODO Pokemon 1 attack pokemon 2 until one of them is out of health
+    # def attack(Pokemon p1, Pokemon p2)
 
-attackName = input("input your pokemon's attack name: ")
+# pokemon 1 attacks pokemon 2 ONE time
+# version 1: without considering Pokemon type effectiveness
+# TODO version 2: consider Pokemon type effectiveness https://pokemondb.net/type
+# TODO consider p1 health >= 0. Is it dead?
+# def singlePokeFight(Pokemon p1, Pokemon p2):
+def singlePokeFight(p1, p2):
+    p1.pokeTYPES = self.types
+    p2.pokeTYPeS = self.types 
 
-print("You will now fight the first boss, Bulbasaur")
-print(pokemon, "fights", "Bulbasaur")
+    if p1.pokeTYPES == "FIRE" and p2.pokeTYPES == "GRASS":
+        gross_damage1 = gross_damage1*2
+        gross_damage2 = gross_damage2/2
 
-while p1.health > 0:
-    b1Fight = input("Do you want to attack or increase your health by 50? (atk, hp)? ")
+    elif p1.pokeTYPES == "FIRE" and p2.pokeTYPES == "FIRE":
+        gross_damage1 = gross_damage1/2
+        gross_damage2 = gross_damage2/2
 
-    if b1Fight == "atk":
-        p1.health = p1.health - pokemonAtk
-        print("Bulbasaur's health is now", p1.health)
+    elif p1.pokeTYPES == "FIRE" and p2.poketypes == "WATER":
+        gross_damage1 == gross_damage1/2
+        gross_damage2 == gross_damage2*2
 
-    elif b1Fight == "hp":
-        pokemonH = pokemonH + 50
-        print("your pokemon's health is now", pokemonH)
+    elif p1.pokeTYPES == "WATER" and p2.pokeTYPES == "FIRE":
+        gross_damage1 = gross_damage1*2
+        gross_damage2 = gross_damage2/2
+
+    elif p1.pokeTYPES == "WATER" and p2.pokeTYPES == "WATER":
+        gross_damage1 = gross_damage1/2
+        gross_damage2 = gross_damage2/2
+
+    elif p1.pokeTYPES == "WATER" and p2.pokeTYPES == "GRASS":
+        gross_damage1 = gross_damage1/2
+        gross_damage2 = gross_damage2*2
+
+    elif p1.pokeTYPES == "GRASS" and p2.pokeTYPES == "WATER":
+        gross_damage1 = gross_damage1*2
+        gross_damage2 = gross_damage2/2
+
+    elif p1.pokeTYPES == "GRASS" and p2.pokeTYPES == "GRASS":
+        gross_damage1 = gross_damage1/2
+        gross_damage2 = gross_damage2/2
+
+    elif p1.pokeTYPES == "GRASS" and p2.pokeTYPES == "FIRE":
+        gross_damage1 = gross_damage1/2
+        gross_damage2 = gross_damage2*2
+
     else:
-        print("Please input valid option. This is case sensitive. ")
+        gross_damage1 = gross_damage1
+        gross_damage2 = gross_damage2
+        
+    gross_damage1 = p2.getAttack() - p1.getDefence()
+    if gross_damage1 > 0:
+        poke1health = p1.getHealth() - gross_damage1
+    else:
+        poke1health = p1.getHealth() - 1
+    
+    gross_damage2 = p1.getAttack() - p2.getDefence()
+    if gross_damage2 > 0:
+        poke2health = p2.getHealth() - gross_damage2
+    else:
+        poke2health = p2.getHealth() - 1 
+    
+    if poke1health > 0:
+        p1.setHealth(poke1health)
+    else:
+        p1.setHealth(0)
+    
+    if poke2health > 0:
+        p2.setHealth(poke2health)
+    else:
+        p2.setHealth(0)
+    
+    print("Attacker Health | Defender Health : " + str(p1.getHealth()) + "|" + str(p2.getHealth()))
+    return 0
+
+def PokeFight(p1, p2):
+
+    
+    while p1.isAlive() and p2.isAlive():
+        singlePokeFight(p1, p2)
+
+    
+    if p1.isAlive() and p2.isAlive():
+        # draw
+        print(p1.getName() + " draws " + p2.getName())
+        return 2
+    elif p1.isAlive():
+        # p1 won
+        print(p1.getName() + " won " + p2.getName())
+        return 0
+    else:
+        # p2 won
+        print(p2.getName() + " won " + p1.getName())
+        return 1
+
+class PokemonVillains:
+    teamName = 'siu'
+    def __init__(self, Name):
+        self.Name = Name
+    def __init__(self, Name, boss1, boss2, boss3):
+        self.Name = Name 
+        self.boss1 = boss1 
+        self.boss2 = boss2
+        self.boss3 = boss3 
+
+# Villains fight
+def singleVillainFight(v1, v2):
+    return 
+
+# Villains fight
+def VillainFight(v1, v2):
+    return 
+
+#counter
+
+
+
+yourPokemonName = input("input your pokemon name ")
+yourPokemonElement = random.choice("FIRE", "WATER", "GRASS")
 
 
 
@@ -109,7 +204,6 @@ while p1.health > 0:
 
 
 
-
-
-
-
+boss1 = Pokemon("Charmander", pokeTYPES.FIRE, 50, 50, 50)
+boss2 = Pokemon("Squirtle", pokeTYPES.WATER, 60, 60, 60)
+boss3 = Pokemon("Bulbasaur", pokeTYPES.GRASS, 100, 100, 100)
